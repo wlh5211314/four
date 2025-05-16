@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click Coordinates Reporter</title>
+    <style>
+        #clickableElement {
+            width: 300px;
+            height: 200px;
+            background-color: lightblue;
+            border: 2px solid darkblue;
+            margin: 50px;
+            padding: 20px;
+            position: relative;
+        }
+        #coordinatesDisplay {
+            margin-top: 20px;
+            font-family: monospace;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="clickableElement">Click anywhere inside this element</div>
+    <div id="coordinatesDisplay">Coordinates will appear here</div>
+
+    <script>
+        const element = document.getElementById('clickableElement');
+        const display = document.getElementById('coordinatesDisplay');
+
+        element.addEventListener('click', function(e) {
+            // Coordinates relative to the element
+            const elementX = e.offsetX;
+            const elementY = e.offsetY;
+            
+            // Coordinates relative to the viewport
+            const viewportX = e.clientX;
+            const viewportY = e.clientY;
+            
+            // Coordinates relative to the document
+            const pageX = e.pageX;
+            const pageY = e.pageY;
+            
+            // Coordinates relative to the screen
+            const screenX = e.screenX;
+            const screenY = e.screenY;
+            
+            // Get element's position relative to viewport
+            const rect = element.getBoundingClientRect();
+            
+            display.innerHTML = `
+                <strong>Relative to element:</strong> (${elementX}, ${elementY})<br>
+                <strong>Relative to viewport:</strong> (${viewportX}, ${viewportY})<br>
+                <strong>Relative to document:</strong> (${pageX}, ${pageY})<br>
+                <strong>Relative to screen:</strong> (${screenX}, ${screenY})<br>
+                <strong>Element position:</strong> top=${Math.round(rect.top)}px, left=${Math.round(rect.left)}px
+            `;
+        });
+    </script>
+</body>
+</html>
